@@ -1,0 +1,26 @@
+.header {
+    height: 20rem;
+    width: 100%;
+    background-color: red;
+    background-size: cover;
+}
+
+
+@media (min-width: 640px) {
+    .header {
+        background-color: blue;
+        height: 50rem;
+    }
+
+    .logo {
+        width: 10rem;
+    }
+}
+
+
+@media (min-width: 1280px) {
+    .header {
+        background-color: green;
+        height: 60rem;
+    }
+}

@@ -17,6 +17,7 @@ module.exports = {
     'react'
   ],
   rules: {
-    quotes: 'off'
+    quotes: 'off',
+    "no-unused-vars": 'warn'
   }
 }

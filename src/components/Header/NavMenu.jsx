@@ -6,7 +6,7 @@ import { useButton } from '../../hooks/'
 import logoNasa from './images/pngwing.com.png'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import Menu from './Menu'
-// import UseFetch from '../../hooks/UseFetch'
+// import useFetch from '../../hooks/UseFetch'
 
 const NavMenu = () => {
   const { statusButton, onchange } = useButton(false)
@@ -23,6 +23,8 @@ const NavMenu = () => {
         color='#fff'
         size={'3rem'}
         onClick={onchange}
+        cursor='pointer'
+        className={styles.button}
       />
 
       {

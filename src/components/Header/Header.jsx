@@ -6,11 +6,12 @@ import FilterForm from '../FilterForm/FilterForm'
 
 const Header = () => {
   return (
-    <header className={styles.header} style={{ backgroundImage: `url(${heroImage})` }}>
-      <div className={styles.container}>
+    <header className={styles.header} >
+      <div className={styles.container} style={{ backgroundImage: `url(${heroImage})` }}>
+      </div>
         <NavMenu />
         <FilterForm />
-      </div>
+
     </header>
   )
 }

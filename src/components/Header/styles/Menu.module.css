@@ -8,6 +8,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 2;
 }
 
 .container {
@@ -24,6 +25,7 @@
     position: absolute;
     top: 5rem;
     right: 2rem;
+    cursor: pointer;
 }
 
 .item {

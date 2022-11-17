@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .logoBox {
@@ -16,6 +18,10 @@
 @media (min-width: 640px) {
     .logoBox {
         width: 10rem;
+    }
+
+    .button {
+        display: none;
     }
 }
 

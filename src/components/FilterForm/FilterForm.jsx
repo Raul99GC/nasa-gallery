@@ -15,66 +15,89 @@ const FilterForm = () => {
     sun: ''
   })
 
+  const inFormSubmit = (e) => {
+    e.preventDefault()
+    console.log({ rover, camera, date, sun })
+  }
+
   return (
     <div className={styles.container}>
-      <form action="" className={styles.form}>
-        <div className={styles.inputContainer}>
-          <span>
-            <GrRobot
-            size={'2rem'}
-             />
-          </span>
-          <input
-            type="text"
-            placeholder='rover?'
-            name='rover'
-            value={rover}
-            onChange={onInputChange}
-          />
+
+      <form action="" className={styles.form} onSubmit={inFormSubmit}>
+
+        <div className={styles.formContainer}>
+          <div className={styles.inputContainer}>
+            <span className={styles.icon}>
+              <GrRobot
+                size={'2rem'}
+              />
+            </span>
+            <input
+              type="text"
+              className={styles.input}
+              placeholder='rover?'
+              name='rover'
+              value={rover}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div className={styles.inputContainer} >
+            <span className={styles.icon}>
+              <AiFillCamera
+                size={'2rem'}
+              />
+            </span>
+            <input
+              type="text"
+              className={styles.input}
+              placeholder='camera?'
+              name='camera'
+              value={camera}
+              onChange={onInputChange}
+            />
+          </div>
+          {/* para esto se hubiera hecho mas facil con Grid :v  */}
+          <div className={styles.formContainerBottom}>
+            <div className={styles.inputContainer} >
+              <span className={styles.icon}>
+                <MdDateRange
+                  size={'2rem'}
+                />
+              </span>
+              <input
+                type="date"
+                className={styles.input}
+                placeholder='YYY-MMM-DD'
+                name='date'
+                value={date}
+                onChange={onInputChange}
+              />
+            </div>
+
+            <div className={styles.inputContainer} >
+              <span className={styles.icon}>
+                <BsSunFill
+                  size={'2rem'}
+                />
+              </span>
+              <input
+                type="number"
+                className={styles.input}
+                placeholder='2890'
+                name='sun'
+                value={sun}
+                onChange={onInputChange}
+              />
+            </div>
+          </div>
+
         </div>
 
-        <div className={styles.inputContainer} >
-          <span>
-            <AiFillCamera />
-          </span>
-          <input
-            type="text"
-            placeholder='camera?'
-            name='camera'
-            value={camera}
-            onChange={onInputChange}
-          />
-        </div>
-
-        <div className={styles.inputContainer} >
-          <span>
-            <MdDateRange />
-          </span>
-          <input
-            type="date"
-            placeholder='YYY-MMM-DD'
-            name='date'
-            value={date}
-            onChange={onInputChange}
-          />
-        </div>
-
-        <div className={styles.inputContainer} >
-          <span>
-            <BsSunFill />
-          </span>
-          <input
-            type="number"
-            placeholder='2890'
-            name='sun'
-            value={sun}
-            onChange={onInputChange}
-          />
-        </div>
         <div className={styles.inputs}>
-          <button>Submit</button>
-          <button>Reset</button>
+          <button type='submit' className={styles.button}>Submit</button>
         </div>
+
       </form>
     </div>
   )

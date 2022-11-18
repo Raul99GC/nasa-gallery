@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const URL = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?'
-const UseFetchImages = (key = '') => {
-  const [filter, setFilter] = useState({})
+const UseFetchImages = (url = '', key = '') => {
+  const [page, setPage] = useState(1)
   const [state, setState] = useState({
     data: [],
     isLoading: true,
@@ -11,27 +10,28 @@ const UseFetchImages = (key = '') => {
   })
 
   const getFetch = async () => {
-    const { data } = await axios.get(`${URL}`)
+    const { data } = await axios.get(`${url}&api_key=${key}&page=${page}`)
+    const { photos } = data
     setState({
-      data,
+      data: [...state.data, ...photos],
       isLoading: false,
       hasError: null
     })
   }
 
-  useEffect(() => {
-    getFetch()
-  }, [])
+  const newPage = () => {
+    setPage(prev => prev + 1)
+  }
 
   useEffect(() => {
-    console.log('cambio')
-  }, [filter])
+    getFetch()
+  }, [page])
 
   return {
     data: state.data,
     isLoading: state.isLoading,
-    hasError: state.hasError
-
+    hasError: state.hasError,
+    newPage
   }
 }
 

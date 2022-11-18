@@ -9,6 +9,8 @@ import { BsSunFill } from 'react-icons/bs'
 import PropTypes from 'prop-types'
 import { useFetchFilters } from '../../hooks'
 
+const KEY = process.env.REACT_APP_API_KEY
+
 const FilterForm = ({ handleNewFilter }) => {
   const [cameras, setCameras] = useState([])
   const [maxSol, setMaxSol] = useState(0)
@@ -19,7 +21,7 @@ const FilterForm = ({ handleNewFilter }) => {
     date: '',
     sol: ''
   })
-  const { data: rovers } = useFetchFilters('https://api.nasa.gov/mars-photos/api/v1/rovers', 'cwBn1QPdGz2gf2Bq0BbTsBmWjwbERoFWfkk7m1hj')
+  const { data: rovers } = useFetchFilters('https://api.nasa.gov/mars-photos/api/v1/rovers', KEY)
 
   const onFormSubmit = (e) => {
     e.preventDefault()

@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './components/Header/Header'
-import { UseFetchImages } from './hooks'
+import { useFetchImages } from './hooks'
 import Gallery from './pages/Gallery/Gallery'
 
 const App = () => {
-  const { data, newPage } = UseFetchImages('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000', 'cwBn1QPdGz2gf2Bq0BbTsBmWjwbERoFWfkk7m1hj')
+  const [filter, setFilter] = useState({})
+  const { data, newPage, newFilter } = useFetchImages('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000', 'cwBn1QPdGz2gf2Bq0BbTsBmWjwbERoFWfkk7m1hj')
+
+  const handleNewFilter = (filters = {}) => {
+    setFilter(filters)
+  }
 
   const handleScroll = () => {
     const Heigth = document.documentElement.scrollHeight
@@ -12,10 +17,13 @@ const App = () => {
     const yourWindow = window.innerHeight
 
     if (yourWindow + top >= Heigth) {
-      console.log(yourWindow + top >= Heigth)
       newPage()
     }
   }
+
+  useEffect(() => {
+    newFilter(filter)
+  }, [filter])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -25,7 +33,7 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      <Header handleNewFilter={handleNewFilter} />
       <Gallery images={data} />
     </>
   )

@@ -13,7 +13,7 @@ const FilterForm = ({ handleNewFilter }) => {
   const [cameras, setCameras] = useState([])
   const [maxSol, setMaxSol] = useState(0)
   const [maxDate, setMaxDate] = useState('')
-  const { rover, camera, date, sol, onInputChange } = useForm({
+  const { rover, camera, date, sol, onInputChange, onResetForm } = useForm({
     rover: '',
     camera: '',
     date: '',
@@ -23,8 +23,11 @@ const FilterForm = ({ handleNewFilter }) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    if (!rover && !camera && !date && !sol) return null
-    else {
+    if (!date && !sol) {
+      return null
+    } else if (!camera || !rover) {
+      return null
+    } else {
       const newFilter = {
         rover,
         camera,
@@ -32,6 +35,7 @@ const FilterForm = ({ handleNewFilter }) => {
         sol
       }
       handleNewFilter(newFilter)
+      onResetForm()
     }
   }
 
@@ -54,61 +58,64 @@ const FilterForm = ({ handleNewFilter }) => {
       <form action="" className={styles.form} onSubmit={onFormSubmit}>
 
         <div className={styles.formContainer}>
-          <div className={styles.inputContainer}>
-            <span className={styles.icon}>
-              <GrRobot
-                size={'2rem'}
-              />
-            </span>
-            <input
-              list="rovers"
-              className={styles.input}
-              placeholder='rover?'
-              name='rover'
-              value={rover}
-              onChange={onInputChange}
-              required={true}
-            />
-            <datalist id='rovers' >
-              {
-                rovers?.map(rover => (
-                  <option
-                    key={rover.id}
-                  >
-                    {rover.name}
-                  </option>
-                ))
-              }
-            </datalist>
 
+          <div className={styles.formContainerTop}>
+            <div className={styles.inputContainer}>
+              <span className={styles.icon}>
+                <GrRobot
+                  size={'2rem'}
+                />
+              </span>
+              <input
+                list="rovers"
+                className={styles.input}
+                placeholder='rover?'
+                name='rover'
+                value={rover}
+                onChange={onInputChange}
+                required={true}
+              />
+              <datalist id='rovers' >
+                {
+                  rovers?.map(rover => (
+                    <option
+                      key={rover.id}
+                    >
+                      {rover.name}
+                    </option>
+                  ))
+                }
+              </datalist>
+
+            </div>
+            <div className={styles.inputContainer} >
+              <span className={styles.icon}>
+                <AiFillCamera
+                  size={'2rem'}
+                />
+              </span>
+              <input
+                list='cameras'
+                className={styles.input}
+                placeholder='camera?'
+                name='camera'
+                value={camera}
+                onChange={onInputChange}
+              />
+              <datalist id='cameras' >
+                {
+                  cameras?.map(camera => (
+                    <option
+                      key={camera.id}
+                    >
+                      {camera.name}
+                    </option>
+                  ))
+                }
+              </datalist>
+            </div>
           </div>
 
-          <div className={styles.inputContainer} >
-            <span className={styles.icon}>
-              <AiFillCamera
-                size={'2rem'}
-              />
-            </span>
-            <input
-              list='cameras'
-              className={styles.input}
-              placeholder='camera?'
-              name='camera'
-              value={camera}
-              onChange={onInputChange}
-            />
-            <datalist id='cameras' >
-              {
-                cameras?.map(camera => (
-                  <option
-                    key={camera.id}
-                  >
-                    {camera.name}
-                  </option>
-                ))
-              }
-            </datalist>
-          </div>
           {/* para esto se hubiera hecho mas facil con Grid :v  */}
           <div className={styles.formContainerBottom}>
             <div className={styles.inputContainer} >

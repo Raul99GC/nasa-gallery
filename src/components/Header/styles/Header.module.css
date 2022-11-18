@@ -1,6 +1,11 @@
 .header {
     width: 100%;
-    position: relative;;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
 }
 
 .container {
@@ -19,6 +24,7 @@
     .header {
         height: 40rem;
     }
+
     .container {
         background-color: blue;
         height: 40rem;
@@ -33,6 +39,7 @@
 @media (min-width: 1280px) {
     .header {
         height: 50rem;
+
     }
 
     .container {

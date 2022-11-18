@@ -1,3 +1,26 @@
-.gallery{
+main {
+    width: 100%;
+    
+}
 
+.container {
+    width: inherit;
+    padding-top: 4rem;
+    display: flex;
+    justify-content: center;
+    background-color: #f9f9f9;
+}
+
+.gallery {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+
+@media (min-width: 640px) {
+    .gallery {
+        width: 60%;
+    }
 }

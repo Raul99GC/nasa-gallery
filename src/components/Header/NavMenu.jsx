@@ -4,8 +4,8 @@ import styles from './styles/NavMenu.module.css'
 import { useButton } from '../../hooks/'
 
 import logoNasa from './images/pngwing.com.png'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import Menu from './Menu'
+// import Menu from './Menu'
+// Solo porque no me dio tiempo de hacer con redux para imagenes favoritas
 // import useFetch from '../../hooks/UseFetch'
 
 const NavMenu = () => {
@@ -18,19 +18,6 @@ const NavMenu = () => {
       <div className={styles.logoBox}>
         <img className={styles.logo} src={logoNasa} alt="logo nasa" />
       </div>
-
-      <GiHamburgerMenu
-        color='#fff'
-        size={'3rem'}
-        onClick={onchange}
-        cursor='pointer'
-        className={styles.button}
-      />
-
-      {
-        statusButton && <Menu setButton={onchange} button={statusButton} />
-      }
-
     </nav>
   )
 }

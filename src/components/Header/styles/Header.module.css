@@ -15,6 +15,10 @@
 
 
 @media (min-width: 640px) {
+
+    .header {
+        height: 40rem;
+    }
     .container {
         background-color: blue;
         height: 40rem;
@@ -27,6 +31,10 @@
 
 
 @media (min-width: 1280px) {
+    .header {
+        height: 50rem;
+    }
+
     .container {
         background-color: green;
         height: 50rem;

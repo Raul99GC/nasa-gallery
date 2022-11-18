@@ -1,8 +1,6 @@
 import React, { } from 'react'
 import styles from './styles/NavMenu.module.css'
 
-import { useButton } from '../../hooks/'
-
 import logoNasa from './images/pngwing.com.png'
 // import Menu from './Menu'
 // Solo porque no me dio tiempo de hacer con redux para imagenes favoritas

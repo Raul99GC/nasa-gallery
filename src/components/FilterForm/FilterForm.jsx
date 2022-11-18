@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useForm from '../../hooks/useForm'
 import styles from './styles/FilterFrom.module.css'
 
@@ -6,24 +6,52 @@ import { AiFillCamera } from 'react-icons/ai'
 import { GrRobot } from 'react-icons/gr'
 import { MdDateRange } from 'react-icons/md'
 import { BsSunFill } from 'react-icons/bs'
+import PropTypes from 'prop-types'
+import { useFetchFilters } from '../../hooks'
 
-const FilterForm = () => {
-  const { rover, camera, date, sun, onInputChange } = useForm({
+const FilterForm = ({ handleNewFilter }) => {
+  const [cameras, setCameras] = useState([])
+  const [maxSol, setMaxSol] = useState(0)
+  const [maxDate, setMaxDate] = useState('')
+  const { rover, camera, date, sol, onInputChange } = useForm({
     rover: '',
     camera: '',
     date: '',
-    sun: ''
+    sol: ''
   })
+  const { data: rovers } = useFetchFilters('https://api.nasa.gov/mars-photos/api/v1/rovers', 'cwBn1QPdGz2gf2Bq0BbTsBmWjwbERoFWfkk7m1hj')
 
-  const inFormSubmit = (e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault()
-    console.log({ rover, camera, date, sun })
+    if (!rover && !camera && !date && !sol) return null
+    else {
+      const newFilter = {
+        rover,
+        camera,
+        date,
+        sol
+      }
+      handleNewFilter(newFilter)
+    }
   }
+
+  useEffect(() => {
+    const camerasRover = rovers.filter((prev) => prev.name === rover)
+    if (camerasRover[0]) {
+      setCameras(camerasRover[0]?.cameras)
+      // eslint-disable-next-line
+      setMaxSol(camerasRover[0]['max_sol'])
+      // eslint-disable-next-line
+      setMaxDate(camerasRover[0]['max_date'])
+    } else {
+      setCameras([])
+    }
+  }, [rover])
 
   return (
     <div className={styles.container}>
 
-      <form action="" className={styles.form} onSubmit={inFormSubmit}>
+      <form action="" className={styles.form} onSubmit={onFormSubmit}>
 
         <div className={styles.formContainer}>
           <div className={styles.inputContainer}>
@@ -33,13 +61,26 @@ const FilterForm = () => {
               />
             </span>
             <input
-              type="text"
+              list="rovers"
               className={styles.input}
               placeholder='rover?'
               name='rover'
               value={rover}
               onChange={onInputChange}
+              required={true}
             />
+            <datalist id='rovers' >
+              {
+                rovers?.map(rover => (
+                  <option
+                    key={rover.id}
+                  >
+                    {rover.name}
+                  </option>
+                ))
+              }
+            </datalist>
+
           </div>
 
           <div className={styles.inputContainer} >
@@ -49,13 +90,24 @@ const FilterForm = () => {
               />
             </span>
             <input
-              type="text"
+              list='cameras'
               className={styles.input}
               placeholder='camera?'
               name='camera'
               value={camera}
               onChange={onInputChange}
             />
+            <datalist id='cameras' >
+              {
+                cameras?.map(camera => (
+                  <option
+                    key={camera.id}
+                  >
+                    {camera.name}
+                  </option>
+                ))
+              }
+            </datalist>
           </div>
           {/* para esto se hubiera hecho mas facil con Grid :v  */}
           <div className={styles.formContainerBottom}>
@@ -72,6 +124,7 @@ const FilterForm = () => {
                 name='date'
                 value={date}
                 onChange={onInputChange}
+                max={maxDate}
               />
             </div>
 
@@ -85,9 +138,10 @@ const FilterForm = () => {
                 type="number"
                 className={styles.input}
                 placeholder='2890'
-                name='sun'
-                value={sun}
+                name='sol'
+                value={sol}
                 onChange={onInputChange}
+                max={maxSol}
               />
             </div>
           </div>
@@ -101,6 +155,10 @@ const FilterForm = () => {
       </form>
     </div>
   )
+}
+
+FilterForm.propTypes = {
+  handleNewFilter: PropTypes.func
 }
 
 export default FilterForm

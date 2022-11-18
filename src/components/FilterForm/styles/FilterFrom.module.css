@@ -5,8 +5,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    /* top: -6rem;
-    z-index: 1; */
 }
 
 .form {
@@ -41,6 +39,7 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #ededed;
+    position: relative;
 }
 
 .formContainerBottom .inputContainer {
@@ -98,3 +97,6 @@ width: 30%;
     cursor: pointer;
 }
 
+.item:hover .nameRover {
+    text-decoration: underline;
+}

@@ -4,8 +4,6 @@ import styles from './styles/Gallery.module.css'
 import ImageCard from './ImageCard'
 
 const Gallery = ({ images }) => {
-  console.log(images)
-
   return (
     <>
       <main style={styles.main}>
